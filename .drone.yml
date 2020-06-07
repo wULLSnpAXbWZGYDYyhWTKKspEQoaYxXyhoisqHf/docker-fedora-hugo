@@ -11,7 +11,7 @@ clone:
 steps:
 - name: call webhook
   pull: always
-  image: curlimages/curl:latest
+  image: bash:latest
   environment:
     ENDPOINT:
       from_secret: dockerhub_endpoint
