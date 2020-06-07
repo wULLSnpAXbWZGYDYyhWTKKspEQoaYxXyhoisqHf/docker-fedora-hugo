@@ -1,0 +1,113 @@
+---
+kind: pipeline
+name: dockerhub-build-trigger
+
+platform:
+  arch: amd64
+
+clone:
+  disable: true
+
+steps:
+- name: call webhook
+  pull: always
+  image: curlimages/curl:latest
+  environment:
+    ENDPOINT:
+      from_secret: dockerhub_endpoint
+  commands:
+    - apk add --no-cache curl
+    - curl -sO https://git.dotya.ml/wanderer/docker-fedora-hugo/raw/branch/master/curl.it
+    - bash ./curl.it -n $ENDPOINT
+
+
+---
+kind: pipeline
+name: notifications
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  disable: true
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+    - tag
+  status:
+    - success
+    - failure
+
+depends_on:
+  - dockerhub-build-trigger
+
+steps:
+  - name: discord
+    pull: if-not-exists
+    image: appleboy/drone-discord:latest
+    settings:
+      message: >
+        {{#success build.status}}
+          ✅ [Build #{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+          event: **`{{build.event}}`**
+          commit [`${DRONE_COMMIT_SHA:0:7}`](https://git.dotya.ml/${DRONE_REPO}/commit/${DRONE_COMMIT_SHA}) by {{commit.author}} on `{{commit.branch}}`
+          ```{{commit.message}}```
+        {{else}}
+          ❌ [Build #{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+          event: **`${DRONE_BUILD_EVENT}`**
+          commit [`${DRONE_COMMIT_SHA:0:7}`](https://git.dotya.ml/${DRONE_REPO}/commit/${DRONE_COMMIT_SHA}) by {{commit.author}} on `{{commit.branch}}`
+          ```{{commit.message}}```
+        {{/success}}
+      webhook_id:
+        from_secret: discord_webhook_id
+      webhook_token:
+        from_secret: discord_webhook_token
+
+---
+kind: pipeline
+name: notifications-cronbuild
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  disable: true
+
+trigger:
+  branch:
+    - master
+  event:
+    - cron
+  cron:
+    - hourly-build
+  status:
+    - success
+    - failure
+
+depends_on:
+  - dockerhub-build-trigger
+
+steps:
+  - name: discord
+    pull: always
+    image: appleboy/drone-discord:latest
+    settings:
+      message: >
+        {{#success build.status}}
+          ✅ [Hourly build #{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+          event: **`{{build.event}}`**
+          commit [`${DRONE_COMMIT_SHA:0:7}`](https://git.dotya.ml/${DRONE_REPO}/commit/${DRONE_COMMIT_SHA}) by {{commit.author}} on `{{commit.branch}}`
+        {{else}}
+          ❌ [Hourly build #{{build.number}}]({{build.link}}) of `{{repo.name}}` failed.
+          event: **`${DRONE_BUILD_EVENT}`**
+          commit [`${DRONE_COMMIT_SHA:0:7}`](https://git.dotya.ml/${DRONE_REPO}/commit/${DRONE_COMMIT_SHA}) by {{commit.author}} on `{{commit.branch}}`
+        {{/success}}
+      webhook_id:
+        from_secret: discord_webhook_hourly_id
+      webhook_token:
+        from_secret: discord_webhook_hourly_token
