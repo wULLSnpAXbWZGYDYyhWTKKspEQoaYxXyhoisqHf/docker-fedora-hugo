@@ -9,6 +9,9 @@ This repository provides the Dockerfile to create a Docker image used for web de
 
 The image is rebuilt approximately every hour to ensure it always has the latest packages.
 
+push mirror lives in [this GitHub repo](https://github.com/wULLSnpAXbWZGYDYyhWTKKspEQoaYxXyhoisqHf/docker-fedora-hugo)  
+development happens on [this Gitea instance](https://git.dotya.ml/wanderer/docker-fedora-hugo)
+
 ## What you get
 * updated `fedora:32` image
 * git
