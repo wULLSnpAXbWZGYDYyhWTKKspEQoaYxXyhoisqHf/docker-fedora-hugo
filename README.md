@@ -13,7 +13,7 @@ push mirror lives in [this GitHub repo](https://github.com/wULLSnpAXbWZGYDYyhWTK
 development happens on [this Gitea instance](https://git.dotya.ml/wanderer/docker-fedora-hugo)
 
 ## What you get
-* updated `fedora:32` image
+* updated `fedora:33` image
 * git
 * hugo-extended (latest version from [GitHub](https://github.com/gohugoio/hugo/releases))
 
