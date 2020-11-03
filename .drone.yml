@@ -83,7 +83,7 @@ trigger:
   event:
     - cron
   cron:
-    - hourly-build
+    - nightly
   status:
     - success
     - failure
@@ -98,7 +98,7 @@ steps:
     settings:
       message: >
         {{#success build.status}}
-          ✅ [Hourly build #{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
+          ✅ [Nightly build #{{build.number}}]({{build.link}}) of `{{repo.name}}` succeeded.
           event: **`{{build.event}}`**
           commit [`${DRONE_COMMIT_SHA:0:7}`](https://git.dotya.ml/${DRONE_REPO}/commit/${DRONE_COMMIT_SHA}) by {{commit.author}} on `{{commit.branch}}`
         {{else}}
