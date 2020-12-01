@@ -24,7 +24,7 @@ steps:
   pull: always
   image: banzaicloud/drone-kaniko
   settings:
-    dockerfile: Dockerfile
+    dockerfile: /drone/src/Dockerfile
     context: .
 
 
