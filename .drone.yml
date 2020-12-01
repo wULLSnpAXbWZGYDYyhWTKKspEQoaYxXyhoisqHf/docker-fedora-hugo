@@ -20,6 +20,13 @@ steps:
     - curl -sO https://git.dotya.ml/wanderer/docker-fedora-hugo/raw/branch/master/curl.it
     - bash ./curl.it $ENDPOINT
 
+- name: kaniko build
+  pull: always
+  image: banzaicloud/drone-kaniko
+  settings:
+    dockerfile: Dockerfile
+    context: .
+
 
 ---
 kind: pipeline
