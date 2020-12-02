@@ -3,7 +3,7 @@ dfile = Dockerfile
 dtag = immawanderer/fedora-hugo:testbuild
 dargs = build -t $(dtag) --pull - < $(dfile)
 cleanargs = image rm -f $(dtag)
-pruneargs = system prune af.
+pruneargs = system prune -af
 dargskaniko = run --rm -it -w=$(kanikowdir) -v $$PWD:$(kanikowdir)
 kanikoexecutorimg = gcr.io/kaniko-project/executor
 kanikowdir = /src
