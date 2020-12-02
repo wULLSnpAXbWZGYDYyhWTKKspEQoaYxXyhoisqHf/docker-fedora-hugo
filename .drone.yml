@@ -20,18 +20,18 @@ steps:
     - curl -sO https://git.dotya.ml/wanderer/docker-fedora-hugo/raw/branch/master/curl.it
     - bash ./curl.it $ENDPOINT
 
-- name: grab Dockerfile
-  pull: always
-  image: bash:latest
-  commands:
-  - apk add --no-cache curl
-  - curl -sO https://git.dotya.ml/${DRONE_REPO}/raw/branch/${DRONE_COMMIT_BRANCH}/Dockerfile
 
-- name: kaniko build
+---
+kind: pipeline
+name: kaniko-build
+
+platform:
+  arch: amd64
+
+steps:
+- name: build
   pull: always
   image: banzaicloud/drone-kaniko
-  depends_on:
-    - "grab Dockerfile"
   settings:
     dockerfile: Dockerfile
     context: .
@@ -59,7 +59,7 @@ trigger:
     - failure
 
 depends_on:
-  - dockerhub-build-trigger
+  - kaniko-build
 
 steps:
   - name: discord
@@ -105,7 +105,7 @@ trigger:
     - failure
 
 depends_on:
-  - dockerhub-build-trigger
+  - kaniko-build
 
 steps:
   - name: discord
