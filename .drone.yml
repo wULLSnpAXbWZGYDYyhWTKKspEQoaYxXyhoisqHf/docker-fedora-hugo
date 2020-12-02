@@ -59,6 +59,7 @@ trigger:
     - failure
 
 depends_on:
+  - dockerhub-build-trigger
   - kaniko-build
 
 steps:
@@ -105,6 +106,7 @@ trigger:
     - failure
 
 depends_on:
+  - dockerhub-build-trigger
   - kaniko-build
 
 steps:
