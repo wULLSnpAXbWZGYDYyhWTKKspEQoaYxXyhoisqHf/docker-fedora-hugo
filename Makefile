@@ -1,7 +1,7 @@
 dcmd = docker
 dfile = Dockerfile
 dtag = immawanderer/fedora-hugo:testbuild
-dargs = build -t $(dtag) --pull - < $(dfile)
+dargs = build -t $(dtag) --no-cache --pull - < $(dfile)
 cleanargs = image rm -f $(dtag)
 pruneargs = system prune -af
 dargskaniko = run --rm -it -w=$(kanikowdir) -v $$PWD:$(kanikowdir)
