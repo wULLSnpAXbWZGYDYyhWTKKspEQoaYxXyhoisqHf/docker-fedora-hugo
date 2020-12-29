@@ -25,5 +25,5 @@ RUN dnf clean all -y \
     find /. -name "*~" -type f -delete; \
     find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete; \
     rm -rv /tmp/* ; \
-    dnf autoremove -y findutils; dnf clean all -y || true
+    dnf autoremove -y -x findutils; dnf clean all -y || true
 WORKDIR /
