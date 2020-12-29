@@ -10,7 +10,7 @@ kanikowdir = /src
 kanikocontext = .
 kanikoargs = -f=$(dfile) -c=$(kanikocontext) --use-new-run --snapshotMode=redo --no-push
 
-.PHONY: build kaniko clean prune
+.PHONY: build kaniko clean test prune
 
 kaniko:
 	$(dcmd) $(dargskaniko) $(kanikoexecutorimg) $(kanikoargs)
@@ -20,6 +20,8 @@ build:
 
 clean:
 	$(dcmd) $(cleanargs)
+
+test: build kaniko
 
 prune:
 	$(dcmd) $(pruneargs)
