@@ -15,15 +15,15 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz /tmp/hugo.tar.gz
 
 WORKDIR /tmp/
-RUN dnf --refresh upgrade -y && dnf install -y git findutils && dnf autoremove -y
+RUN dnf --refresh upgrade -y && dnf install -y git findutils
 RUN tar xfv /tmp/hugo.tar.gz && rm -v /tmp/hugo.tar.gz README.md LICENSE \
     && chmod +x /tmp/hugo \
     && mkdir -pv /usr/local/bin \
-    && mv -v /tmp/hugo /usr/local/bin/
-RUN dnf clean all -y \
-    && rm -rv /usr/share/zoneinfo/* ; rm -rv /usr/include/* ; \
+    && mv -v /tmp/hugo /usr/local/bin/ \
+    && rm -rv /tmp/*
+RUN dnf autoremove -y -x findutils \
+    && dnf clean all -y
+RUN rm -rv /usr/share/zoneinfo/* ; rm -rv /usr/include/* ; \
     find /. -name "*~" -type f -delete; \
-    find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete; \
-    rm -rv /tmp/* ; \
-    dnf autoremove -y -x findutils; dnf clean all -y || true
+    find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete
 WORKDIR /
