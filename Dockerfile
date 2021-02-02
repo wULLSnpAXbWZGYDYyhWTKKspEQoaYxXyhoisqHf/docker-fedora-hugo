@@ -23,7 +23,7 @@ RUN tar xfv /tmp/hugo.tar.gz && rm -v /tmp/hugo.tar.gz README.md LICENSE \
     && rm -rv /tmp/*
 RUN dnf autoremove -y -x findutils \
     && dnf clean all -y
-RUN rm -rv /usr/share/zoneinfo/* ; rm -rv /usr/include/* ; \
+RUN rm -r /usr/share/zoneinfo/* ; rm -r /usr/include/* ; \
     find /. -name "*~" -type f -delete; \
     find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete
 WORKDIR /
