@@ -1,4 +1,4 @@
-FROM fedora:33
+FROM fedora:34
 
 ENV HUGO_VERSION 0.82.0
 

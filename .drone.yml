@@ -22,6 +22,10 @@ steps:
   - curl -sO https://git.dotya.ml/wanderer/docker-fedora-hugo/raw/branch/master/curl.it
   - bash ./curl.it $ENDPOINT
 
+trigger:
+  branch: [master]
+  event: [push, cron]
+
 ---
 kind: pipeline
 type: docker
@@ -73,8 +77,6 @@ steps:
       from_secret: discord_webhook_token
 
 trigger:
-  branch:
-  - master
   event:
     exclude: [pull_request]
     include: [push, tag]
