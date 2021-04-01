@@ -37,7 +37,7 @@ depends_on:
 steps:
 - name: build
   pull: always
-  image: ghcr.io/finitum/drone-kaniko:0.8.1
+  image: ghcr.io/finitum/drone-kaniko:0.8.2
   settings:
     dockerfile: Dockerfile
     context: .
