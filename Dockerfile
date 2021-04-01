@@ -1,4 +1,4 @@
-FROM fedora:33
+FROM fedora:34
 
 ENV HUGO_VERSION 0.82.0
 
@@ -16,14 +16,14 @@ ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_ext
 
 WORKDIR /tmp/
 RUN dnf --refresh upgrade -y && dnf install -y git findutils
-RUN tar xfv /tmp/hugo.tar.gz && rm -v /tmp/hugo.tar.gz README.md LICENSE \
+RUN tar xfv /tmp/hugo.tar.gz && rm -fv /tmp/hugo.tar.gz README.md LICENSE \
     && chmod +x /tmp/hugo \
     && mkdir -pv /usr/local/bin \
     && mv -v /tmp/hugo /usr/local/bin/ \
-    && rm -rv /tmp/*
+    && rm -rfv /tmp/*
 RUN dnf autoremove -y -x findutils \
     && dnf clean all -y
-RUN rm -r /usr/share/zoneinfo/* ; rm -r /usr/include/* ; \
+RUN rm -rf /usr/share/zoneinfo/* ; rm -rf /usr/include/* ; \
     find /. -name "*~" -type f -delete; \
     find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete
 WORKDIR /
