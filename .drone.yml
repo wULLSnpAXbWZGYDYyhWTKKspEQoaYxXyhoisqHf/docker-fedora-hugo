@@ -31,9 +31,6 @@ platform:
   os: linux
   arch: amd64
 
-depends_on:
-- dockerhub-build-trigger
-
 steps:
 - name: build
   pull: always
@@ -79,8 +76,8 @@ trigger:
   branch:
   - master
   event:
-  - push
-  - tag
+    exclude: [pull_request]
+    include: [push, tag]
   status:
   - success
   - failure
