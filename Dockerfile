@@ -1,4 +1,4 @@
-FROM fedora:34
+FROM registry.fedoraproject.org/fedora-minimal:34
 
 ENV HUGO_VERSION 0.82.1
 
@@ -15,14 +15,14 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz /tmp/hugo.tar.gz
 
 WORKDIR /tmp/
-RUN dnf --refresh upgrade -y && dnf install -y git findutils
-RUN tar xfv /tmp/hugo.tar.gz && rm -fv /tmp/hugo.tar.gz README.md LICENSE \
+RUN microdnf --refresh upgrade -y && microdnf install -y bsdtar git findutils \
+    --nodocs --setopt install_weak_deps=0
+RUN bsdtar xfv /tmp/hugo.tar.gz && rm -fv /tmp/hugo.tar.gz README.md LICENSE \
     && chmod +x /tmp/hugo \
     && mkdir -pv /usr/local/bin \
     && mv -v /tmp/hugo /usr/local/bin/ \
     && rm -rfv /tmp/*
-RUN dnf autoremove -y -x findutils \
-    && dnf clean all -y
+RUN microdnf clean all -y
 RUN rm -rf /usr/share/zoneinfo/* ; rm -rf /usr/include/* ; \
     find /. -name "*~" -type f -delete; \
     find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete
