@@ -31,7 +31,6 @@ steps:
     context: .
   when:
     ref:
-    - refs/heads/master
     - "refs/heads/feature-**"
     - "refs/pull/**"
     - "refs/tags/**"
