@@ -16,14 +16,15 @@ ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_ext
 
 WORKDIR /tmp/
 RUN microdnf --refresh upgrade -y && microdnf install -y bsdtar git findutils \
-    --nodocs --setopt install_weak_deps=0
+    --nodocs --setopt install_weak_deps=0 \
+    && microdnf clean all -y
+# ignore DL3059
 RUN bsdtar xfv /tmp/hugo.tar.gz && rm -fv /tmp/hugo.tar.gz README.md LICENSE \
     && chmod +x /tmp/hugo \
     && mkdir -pv /usr/local/bin \
     && mv -v /tmp/hugo /usr/local/bin/ \
-    && rm -rfv /tmp/*
-RUN microdnf clean all -y
-RUN rm -rf /usr/share/zoneinfo/* ; rm -rf /usr/include/* ; \
+    && rm -rfv /tmp/* \
+    && rm -rf /usr/share/zoneinfo/* ; rm -rf /usr/include/* ; \
     find /. -name "*~" -type f -delete; \
     find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete
 WORKDIR /
