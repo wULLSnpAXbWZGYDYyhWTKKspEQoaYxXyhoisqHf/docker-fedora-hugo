@@ -1,6 +1,6 @@
 FROM registry.fedoraproject.org/fedora-minimal:34
 
-ENV HUGO_VERSION 0.88.0
+ENV HUGO_VERSION 0.88.1
 
 ARG BUILD_DATE
 ARG VCS_REF
