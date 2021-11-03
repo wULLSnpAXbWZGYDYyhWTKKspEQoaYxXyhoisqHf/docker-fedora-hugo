@@ -26,6 +26,6 @@ RUN bsdtar xfv /tmp/hugo.tar.gz && rm -fv /tmp/hugo.tar.gz README.md LICENSE \
     && mv -v /tmp/hugo /usr/local/bin/ \
     && rm -rfv /tmp/* \
     && rm -rf /usr/share/zoneinfo/* ; rm -rf /usr/include/* ; \
-    find /. -name "*~" -type f -delete; \
+    find /. -name "*~" -type f -delete > /dev/null 2>&1 ;\
     find /usr/share/terminfo/. ! -name "*xterm*" ! -name "*screen*" ! -name "*screen*" -type f -delete
 WORKDIR /
