@@ -20,9 +20,9 @@ WORKDIR /tmp/
 # hadolint ignore=DL3041
 RUN microdnf --refresh upgrade -y && microdnf install -y bsdtar git findutils \
     --nodocs --setopt install_weak_deps=0 \
-    && microdnf clean all -y
-# ignore DL3059
-RUN bsdtar xfv /tmp/hugo.tar.gz && rm -fv /tmp/hugo.tar.gz README.md LICENSE \
+    && microdnf clean all -y; \
+    \
+    bsdtar xfv /tmp/hugo.tar.gz && rm -fv /tmp/hugo.tar.gz README.md LICENSE \
     && chmod +x /tmp/hugo \
     && mkdir -pv /usr/local/bin \
     && mv -v /tmp/hugo /usr/local/bin/ \
