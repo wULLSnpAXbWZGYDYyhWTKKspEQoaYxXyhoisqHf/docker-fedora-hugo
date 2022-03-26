@@ -16,6 +16,8 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 ADD https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz /tmp/hugo.tar.gz
 
 WORKDIR /tmp/
+# DL3041 warning: Specify version with `dnf install -y <package>-<version>`.
+# hadolint ignore=DL3041
 RUN microdnf --refresh upgrade -y && microdnf install -y bsdtar git findutils \
     --nodocs --setopt install_weak_deps=0 \
     && microdnf clean all -y
