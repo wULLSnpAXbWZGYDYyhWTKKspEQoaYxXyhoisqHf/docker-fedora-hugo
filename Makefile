@@ -1,5 +1,5 @@
 dcmd = docker
-dfile = Dockerfile
+dfile = Containerfile
 dtag = immawanderer/fedora-hugo:testbuild
 dargs = build -t $(dtag) --no-cache --pull - < $(dfile)
 cleanargs = image rm -f $(dtag)

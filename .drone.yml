@@ -13,7 +13,7 @@ steps:
   image: hadolint/hadolint:v2.9.3-alpine
   commands:
   - hadolint --version
-  - hadolint Dockerfile
+  - hadolint Containerfile
   when:
     ref:
     - refs/heads/master
@@ -27,7 +27,7 @@ steps:
   pull: always
   image: immawanderer/drone-kaniko:linux-amd64
   settings:
-    dockerfile: Dockerfile
+    dockerfile: Containerfile
     context: .
     args:
       - BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
@@ -44,7 +44,7 @@ steps:
   pull: always
   image: immawanderer/drone-kaniko:linux-amd64
   settings:
-    dockerfile: Dockerfile
+    dockerfile: Containerfile
     context: .
     args:
       - BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
