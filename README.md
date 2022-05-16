@@ -15,7 +15,7 @@ push mirror lives in [this GitHub repo](https://github.com/wULLSnpAXbWZGYDYyhWTK
 development happens on [this Gitea instance](https://git.dotya.ml/wanderer/docker-fedora-hugo)
 
 ## What you get
-* updated `registry.fedoraproject.org/fedora-minimal:35` image
+* updated `registry.fedoraproject.org/fedora-minimal:36` image
 * git
 * hugo-extended (latest version from [GitHub](https://github.com/gohugoio/hugo/releases))
 

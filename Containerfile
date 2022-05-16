@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.3
-FROM registry.fedoraproject.org/fedora-minimal:35
+FROM registry.fedoraproject.org/fedora-minimal:36
 
 ENV HUGO_VERSION 0.98.0
 
