@@ -156,3 +156,9 @@ trigger:
 
 depends_on:
 - testing
+
+---
+kind: signature
+hmac: f43c4763b72fa76b3c12b03aa32f9a36f22ebb3a90d546388bd625ba6d3efe01
+
+...
